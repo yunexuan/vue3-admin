@@ -46,7 +46,10 @@ class RequestHttp {
         config.loading ??= true;
         config.loading && showFullScreenLoading();
         if (config.headers && typeof config.headers.set === "function") {
-          config.headers.set("x-access-token", userStore.token);
+          const token = userStore.token;
+          if (token.tokenValue && token.tokenName) {
+            config.headers.set(token.tokenName, token.tokenValue);
+          }
         }
         return config;
       },
@@ -68,7 +71,7 @@ class RequestHttp {
         config.loading && tryHideFullScreenLoading();
         // 登录失效
         if (data.code == ResultEnum.OVERDUE) {
-          userStore.setToken("");
+          userStore.clearToken();
           router.replace(LOGIN_URL);
           ElMessage.error(data.msg);
           return Promise.reject(data);
@@ -109,7 +112,7 @@ class RequestHttp {
     return this.service.put(url, params, _object);
   }
   delete<T = any>(url: string, params?: any, _object = {}): Promise<ResultData<T>> {
-    return this.service.delete(url, { params, ..._object });
+    return this.service.delete(url, { data: params, ..._object });
   }
   download(url: string, params?: object, _object = {}): Promise<BlobPart> {
     return this.service.post(url, params, { ..._object, responseType: "blob" });

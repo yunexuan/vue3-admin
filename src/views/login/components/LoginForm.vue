@@ -71,8 +71,8 @@ const loginRules = reactive({
 
 const loading = ref(false);
 const loginForm = reactive<Login.ReqLoginForm>({
-  username: "",
-  password: "",
+  username: "sp_admin",
+  password: "twx@admin123321",
   captcha: "",
   key: ""
 });
