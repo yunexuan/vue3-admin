@@ -77,10 +77,7 @@ async function getInfo(id: string) {
 
 // 获取菜单列表
 async function getMenuList() {
-  const params = {
-    applyId: ruleForm.applyId,
-  }
-  const { data } = await sysMenuApi.getMenuTree(params)
+  const { data } = await sysMenuApi.getMenuTree()
   menuList.value = data
 }
 
@@ -123,6 +120,7 @@ function handleSubmit() {
 }
 
 onMounted(() => {
+  getMenuList()
   if (ruleFormRef.value) {
     ruleFormRef.value.resetFields()
   }
