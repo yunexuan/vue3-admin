@@ -1,17 +1,17 @@
-import http from "@/api";
-import BaseApi from "@/api/crud";
+import http from '@/api'
+import BaseApi from '@/api/crud'
 
 class HospitalApi extends BaseApi {
   constructor() {
-    super("/sysHospitalInfo");
+    super('/sysHospitalInfo')
   }
 
   // 获取菜单树
   getList(params = {}) {
-    return http.get<Array<any>>(`/sysHospitalInfo/list`, params, { loading: false });
+    return http.get<Array<any>>(`/sysHospitalInfo/list`, params, { loading: false })
   }
 }
 
-const hospitalApi = new HospitalApi();
+const hospitalApi = new HospitalApi()
 
-export default hospitalApi;
+export default hospitalApi

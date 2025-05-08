@@ -1,97 +1,50 @@
 {
-  "editor.formatOnSave": true,
+  // Disable the default formatter, use eslint instead
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+
+  // Auto fix
   "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": "explicit"
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
   },
-  "stylelint.enable": true,
-  "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "sass", "html"],
-  "files.eol": "\n",
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[less]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "cSpell.words": [
-    "AMAP",
-    "apng",
-    "axios",
-    "Biao",
-    "brotli",
-    "cascader",
-    "commitlint",
-    "contentleft",
-    "contentright",
-    "CSDN",
-    "daterange",
-    "datetimerange",
-    "echarts",
-    "fangda",
-    "geeker",
-    "Gitee",
-    "hexs",
-    "huiche",
-    "iconfont",
-    "juejin",
-    "liquidfill",
-    "longpress",
-    "monthrange",
-    "nprogress",
-    "officedocument",
-    "openxmlformats",
-    "Pageable",
-    "persistedstate",
-    "pinia",
-    "pjpeg",
-    "Prefixs",
-    "screenfull",
-    "sortablejs",
-    "sousuo",
-    "spreadsheetml",
-    "styl",
-    "stylelint",
-    "stylelintignore",
-    "stylelintrc",
-    "suoxiao",
-    "truetype",
-    "tuichu",
-    "unplugin",
-    "unref",
-    "VITE",
-    "vuedraggable",
-    "vueuse",
-    "Vuex",
-    "wangeditor",
-    "xiala",
-    "xiaoxi",
-    "Yahei",
-    "yiwen",
-    "zhongyingwen",
-    "zhuti"
+
+  // Silent the stylistic rules in you IDE, but still auto fix them
+  "eslint.rules.customizations": [
+    { "rule": "style/*", "severity": "off", "fixable": true },
+    { "rule": "format/*", "severity": "off", "fixable": true },
+    { "rule": "*-indent", "severity": "off", "fixable": true },
+    { "rule": "*-spacing", "severity": "off", "fixable": true },
+    { "rule": "*-spaces", "severity": "off", "fixable": true },
+    { "rule": "*-order", "severity": "off", "fixable": true },
+    { "rule": "*-dangle", "severity": "off", "fixable": true },
+    { "rule": "*-newline", "severity": "off", "fixable": true },
+    { "rule": "*quotes", "severity": "off", "fixable": true },
+    { "rule": "*semi", "severity": "off", "fixable": true }
+  ],
+
+  // Enable eslint for all supported languages
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml",
+    "toml",
+    "xml",
+    "gql",
+    "graphql",
+    "astro",
+    "svelte",
+    "css",
+    "less",
+    "scss",
+    "pcss",
+    "postcss"
   ]
 }

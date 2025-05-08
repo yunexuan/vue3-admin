@@ -1,17 +1,17 @@
+<script setup lang="ts">
+import { useGlobalStore } from '@/stores/modules/global'
+
+const globalStore = useGlobalStore()
+function exitMaximize() {
+  globalStore.setGlobalState('maximize', false)
+}
+</script>
+
 <template>
   <div class="maximize" @click="exitMaximize">
-    <i :class="'iconfont icon-tuichu'"></i>
+    <i class="iconfont icon-tuichu" />
   </div>
 </template>
-
-<script setup lang="ts">
-import { useGlobalStore } from "@/stores/modules/global";
-
-const globalStore = useGlobalStore();
-const exitMaximize = () => {
-  globalStore.setGlobalState("maximize", false);
-};
-</script>
 
 <style scoped lang="scss">
 .maximize {

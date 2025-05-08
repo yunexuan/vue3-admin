@@ -1,20 +1,20 @@
-import http from "@/api";
-import BaseApi from "@/api/crud";
+import http from '@/api'
+import BaseApi from '@/api/crud'
 
 class SysUserApi extends BaseApi {
   constructor() {
-    super("/sys/user");
+    super('/sys/user')
   }
 
   getList(params = {}) {
-    return http.get<Array<any>>(`/sys/user/list`, params, { loading: false });
+    return http.get<Array<any>>(`/sys/user/list`, params, { loading: false })
   }
 
   resetUserPassWord() {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.')
   }
 }
 
-const sysUserApi = new SysUserApi();
+const sysUserApi = new SysUserApi()
 
-export default sysUserApi;
+export default sysUserApi

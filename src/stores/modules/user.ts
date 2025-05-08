@@ -1,37 +1,36 @@
-import { defineStore } from "pinia";
-import { UserState } from "@/stores/interface";
-import piniaPersistConfig from "@/stores/helper/persist";
+import type { UserState } from '@/stores/interface'
+import piniaPersistConfig from '@/stores/helper/persist'
+import { defineStore } from 'pinia'
 
-export const useUserStore = defineStore({
-  id: "geeker-user",
+export const useUserStore = defineStore('geeker-user', {
   state: (): UserState => ({
     token: {
-      tokenName: "",
-      tokenValue: ""
+      tokenName: '',
+      tokenValue: '',
     },
     userInfo: {
-      userId: "",
-      orgId: "",
-      nickName: "",
-      headImg: ""
-    }
+      userId: '',
+      orgId: '',
+      nickName: '',
+      headImg: '',
+    },
   }),
   getters: {},
   actions: {
     // Set Token
-    setToken(token: UserState["token"]) {
-      Object.assign(this.token, token);
+    setToken(token: UserState['token']) {
+      Object.assign(this.token, token)
     },
     clearToken() {
       this.token = {
-        tokenName: "",
-        tokenValue: ""
-      };
+        tokenName: '',
+        tokenValue: '',
+      }
     },
     // Set setUserInfo
-    setUserInfo(userInfo: UserState["userInfo"]) {
-      this.userInfo = userInfo;
-    }
+    setUserInfo(userInfo: UserState['userInfo']) {
+      this.userInfo = userInfo
+    },
   },
-  persist: piniaPersistConfig("geeker-user")
-});
+  persist: piniaPersistConfig('geeker-user'),
+})

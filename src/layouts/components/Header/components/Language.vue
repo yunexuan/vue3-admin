@@ -1,6 +1,27 @@
+<script setup lang="ts">
+import type { LanguageType } from '@/stores/interface'
+import { useGlobalStore } from '@/stores/modules/global'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const i18n = useI18n()
+const globalStore = useGlobalStore()
+const language = computed(() => globalStore.language)
+
+const languageList = [
+  { label: '简体中文', value: 'zh' },
+  { label: 'English', value: 'en' },
+]
+
+function changeLanguage(lang: string) {
+  i18n.locale.value = lang
+  globalStore.setGlobalState('language', lang as LanguageType)
+}
+</script>
+
 <template>
   <el-dropdown trigger="click" @command="changeLanguage">
-    <i :class="'iconfont icon-zhongyingwen'" class="toolBar-icon"></i>
+    <i class="iconfont icon-zhongyingwen toolBar-icon" />
     <template #dropdown>
       <el-dropdown-menu>
         <el-dropdown-item
@@ -15,24 +36,3 @@
     </template>
   </el-dropdown>
 </template>
-
-<script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import { computed } from "vue";
-import { useGlobalStore } from "@/stores/modules/global";
-import { LanguageType } from "@/stores/interface";
-
-const i18n = useI18n();
-const globalStore = useGlobalStore();
-const language = computed(() => globalStore.language);
-
-const languageList = [
-  { label: "简体中文", value: "zh" },
-  { label: "English", value: "en" }
-];
-
-const changeLanguage = (lang: string) => {
-  i18n.locale.value = lang;
-  globalStore.setGlobalState("language", lang as LanguageType);
-};
-</script>

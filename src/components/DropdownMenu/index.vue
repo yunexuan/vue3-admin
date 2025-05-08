@@ -1,23 +1,3 @@
-<template>
-  <el-dropdown trigger="click">
-    <div class="el-dropdown-link">
-      <div>菜单</div>
-      <div class="i-ep-arrow-down"></div>
-    </div>
-    <template #dropdown>
-      <div class="dropdown-body">
-        <slot></slot>
-      </div>
-
-      <!-- <el-dropdown-menu>
-        <el-dropdown-item v-for="(item, index) in $slots.default" :key="index">
-          <component :is="item"></component>
-        </el-dropdown-item>
-      </el-dropdown-menu> -->
-    </template>
-  </el-dropdown>
-</template>
-
 <script lang="ts" setup>
 // console.log(slots);
 
@@ -31,6 +11,27 @@
 //   });
 // }
 </script>
+
+<template>
+  <el-dropdown trigger="click">
+    <div class="el-dropdown-link">
+      <div>菜单</div>
+      <div class="i-ep-arrow-down" />
+    </div>
+    <template #dropdown>
+      <div class="dropdown-body">
+        <slot />
+      </div>
+
+      <!-- <el-dropdown-menu>
+        <el-dropdown-item v-for="(item, index) in $slots.default" :key="index">
+          <component :is="item"></component>
+        </el-dropdown-item>
+      </el-dropdown-menu> -->
+    </template>
+  </el-dropdown>
+</template>
+
 <style lang="scss" scoped>
 .el-dropdown-link {
   display: flex;

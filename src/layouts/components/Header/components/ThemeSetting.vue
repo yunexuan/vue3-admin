@@ -1,12 +1,13 @@
+<script setup lang="ts">
+import mittBus from '@/utils/mittBus'
+
+function openDrawer() {
+  mittBus.emit('openThemeDrawer')
+}
+</script>
+
 <template>
   <div class="theme-setting">
-    <i :class="'iconfont icon-zhuti'" class="toolBar-icon" @click="openDrawer"></i>
+    <i class="iconfont icon-zhuti toolBar-icon" @click="openDrawer" />
   </div>
 </template>
-
-<script setup lang="ts">
-import mittBus from "@/utils/mittBus";
-const openDrawer = () => {
-  mittBus.emit("openThemeDrawer");
-};
-</script>
