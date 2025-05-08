@@ -147,6 +147,37 @@ export function getUrlWithParams() {
 }
 
 /**
+ * 组装前端路由以及菜单
+ * @param menu 后端返回的菜单
+ */
+export function assembleMenu(menus: Array<any>, parent?: any): Array<Menu.MenuOptions> {
+  const menuList: Array<Menu.MenuOptions> = [];
+  menus.forEach(menu => {
+    const item: Menu.MenuOptions = {
+      path: menu.menuPath,
+      name: menu.menuPath,
+      component: menu.pagePath,
+      meta: {
+        icon: menu.menuIcon,
+        title: menu.menuName,
+        isHide: menu.hideFlag === 1,
+        isFull: menu.fullFlag === 1,
+        isAffix: menu.fixedFlag === 1,
+        isKeepAlive: menu.cacheFlag === 1,
+        isLink: menu.linkFlag === 1 ? menu.linkUrl : "",
+        activeMenu: parent && parent.pagePath ? parent.menuPath : null
+      },
+      children: []
+    };
+    if (Array.isArray(menu.children) && menu.children.length > 0) {
+      item.children = assembleMenu(menu.children, menu);
+    }
+    menuList.push(item);
+  });
+  return menuList;
+}
+
+/**
  * @description 使用递归扁平化菜单，方便添加动态路由
  * @param {Array} menuList 菜单列表
  * @returns {Array}

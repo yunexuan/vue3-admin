@@ -4,9 +4,7 @@
       <el-tabs v-model="tabsMenuValue" type="card" @tab-click="tabClick" @tab-remove="tabRemove">
         <el-tab-pane v-for="item in tabsMenuList" :key="item.path" :label="item.title" :name="item.path" :closable="item.close">
           <template #label>
-            <el-icon v-if="item.icon && tabsIcon" class="tabs-icon">
-              <component :is="item.icon"></component>
-            </el-icon>
+            <Icon v-if="item.icon && tabsIcon" :icon="item.icon" class="tabs-icon"> </Icon>
             {{ item.title }}
           </template>
         </el-tab-pane>
@@ -104,5 +102,5 @@ const tabRemove = (fullPath: TabPaneName) => {
 </script>
 
 <style scoped lang="scss">
-@import "./index.scss";
+@import "./index";
 </style>

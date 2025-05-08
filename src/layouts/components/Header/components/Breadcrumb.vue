@@ -8,9 +8,7 @@
             :class="{ 'item-no-icon': !item.meta.icon }"
             @click="onBreadcrumbClick(item, index)"
           >
-            <el-icon v-if="item.meta.icon && globalStore.breadcrumbIcon" class="breadcrumb-icon">
-              <component :is="item.meta.icon"></component>
-            </el-icon>
+            <Icon v-if="item.meta.icon && globalStore.breadcrumbIcon" class="breadcrumb-icon" :icon="item.meta.icon"> </Icon>
             <span class="breadcrumb-title">{{ item.meta.title }}</span>
           </div>
         </el-breadcrumb-item>
@@ -36,7 +34,7 @@ const breadcrumbList = computed(() => {
   let breadcrumbData = authStore.breadcrumbListGet[route.matched[route.matched.length - 1].path] ?? [];
   // 🙅‍♀️不需要首页面包屑可删除以下判断
   if (breadcrumbData[0].path !== HOME_URL) {
-    breadcrumbData = [{ path: HOME_URL, meta: { icon: "HomeFilled", title: "首页" } }, ...breadcrumbData];
+    breadcrumbData = [{ path: HOME_URL, meta: { icon: "ep:home-filled", title: "首页" } }, ...breadcrumbData];
   }
   return breadcrumbData;
 });

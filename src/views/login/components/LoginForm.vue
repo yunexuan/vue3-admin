@@ -1,7 +1,7 @@
 <template>
   <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" size="large">
     <el-form-item prop="username">
-      <el-input v-model="loginForm.username" placeholder="用户名：admin / user">
+      <el-input v-model="loginForm.username" placeholder="请输入账号">
         <template #prefix>
           <el-icon class="el-input__icon">
             <user />
@@ -10,13 +10,27 @@
       </el-input>
     </el-form-item>
     <el-form-item prop="password">
-      <el-input v-model="loginForm.password" type="password" placeholder="密码：123456" show-password autocomplete="new-password">
+      <el-input v-model="loginForm.password" type="password" placeholder="请输入密码" show-password autocomplete="new-password">
         <template #prefix>
           <el-icon class="el-input__icon">
             <lock />
           </el-icon>
         </template>
       </el-input>
+    </el-form-item>
+    <el-form-item prop="captcha">
+      <div class="login-captcha-row">
+        <el-input v-model="loginForm.captcha" placeholder="验证码">
+          <template #prefix>
+            <el-icon class="el-input__icon">
+              <lock />
+            </el-icon>
+          </template>
+        </el-input>
+        <div class="login-captcha-code" @click="getCaptcha">
+          <img :src="captchaBase64" alt="" />
+        </div>
+      </div>
     </el-form-item>
   </el-form>
   <div class="login-btn">
@@ -33,15 +47,14 @@ import { useRouter } from "vue-router";
 import { HOME_URL } from "@/config";
 // import { getTimeState } from "@/utils";
 import { Login } from "@/api/interface";
-import { ElNotification } from "element-plus";
-import { loginApi } from "@/api/modules/login";
 import { useUserStore } from "@/stores/modules/user";
 import { useTabsStore } from "@/stores/modules/tabs";
 import { useKeepAliveStore } from "@/stores/modules/keepAlive";
 import { initDynamicRouter } from "@/routers/modules/dynamicRouter";
 import { CircleClose, UserFilled } from "@element-plus/icons-vue";
 import type { ElForm } from "element-plus";
-import md5 from "md5";
+// import md5 from "md5";
+import sysAuthApi from "@/api/modules/system/auth";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -52,13 +65,16 @@ type FormInstance = InstanceType<typeof ElForm>;
 const loginFormRef = ref<FormInstance>();
 const loginRules = reactive({
   username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
-  password: [{ required: true, message: "请输入密码", trigger: "blur" }]
+  password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+  captcha: [{ required: true, message: "请输入验证码", trigger: "blur" }]
 });
 
 const loading = ref(false);
 const loginForm = reactive<Login.ReqLoginForm>({
   username: "",
-  password: ""
+  password: "",
+  captcha: "",
+  key: ""
 });
 
 // login
@@ -69,9 +85,8 @@ const login = (formEl: FormInstance | undefined) => {
     loading.value = true;
     try {
       // 1.执行登录接口
-      const { data } = await loginApi({ ...loginForm, password: md5(loginForm.password) });
-      userStore.setToken(data.access_token);
-
+      const { data } = await sysAuthApi.login(loginForm);
+      userStore.setToken(data);
       // 2.添加动态路由
       await initDynamicRouter();
 
@@ -81,19 +96,8 @@ const login = (formEl: FormInstance | undefined) => {
 
       // 4.跳转到首页
       router.push(HOME_URL);
-      // ElNotification({
-      //   title: getTimeState(),
-      //   message: "欢迎登录 Geeker-Admin",
-      //   type: "success",
-      //   duration: 3000
-      // });
-      ElNotification({
-        title: "React 付费版本 🔥🔥🔥",
-        dangerouslyUseHTMLString: true,
-        message: "预览地址：<a href='https://pro.spicyboy.cn'>https://pro.spicyboy.cn</a>",
-        type: "success",
-        duration: 8000
-      });
+    } catch (e) {
+      getCaptcha();
     } finally {
       loading.value = false;
     }
@@ -106,7 +110,15 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 
+const captchaBase64 = ref("");
+const getCaptcha = async () => {
+  const { data } = await sysAuthApi.getCaptcha();
+  loginForm.key = data.key;
+  captchaBase64.value = "data:image/png;base64," + data.captcha;
+};
+
 onMounted(() => {
+  getCaptcha();
   // 监听 enter 事件（调用登录）
   document.onkeydown = (e: KeyboardEvent) => {
     if (e.code === "Enter" || e.code === "enter" || e.code === "NumpadEnter") {
@@ -122,5 +134,5 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped lang="scss">
-@import "../index.scss";
+@import "../index";
 </style>

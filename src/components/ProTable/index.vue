@@ -65,6 +65,9 @@
             <el-tag v-if="item.type == 'sort'" class="move">
               <el-icon> <DCaret /></el-icon>
             </el-tag>
+            <!-- dict -->
+            <Dictionary v-if="item.type == 'dictionary' && item.prop" v-model="scope.row[item.prop]" :dict="item.dict" type="tag">
+            </Dictionary>
           </template>
         </el-table-column>
         <!-- other -->
@@ -124,6 +127,7 @@ export interface ProTableProps {
   requestAuto?: boolean; // 是否自动执行请求 api ==> 非必传（默认为true）
   requestError?: (params: any) => void; // 表格 api 请求错误监听 ==> 非必传
   dataCallback?: (data: any) => any; // 返回数据的回调函数，可以对数据进行处理 ==> 非必传
+  searchParamsCallback?: (params: any) => void; //搜索参数回调函数，可以对搜索参数进行处理 ==> 非必传
   title?: string; // 表格标题 ==> 非必传
   pagination?: boolean; // 是否需要分页组件 ==> 非必传（默认为true）
   initParam?: any; // 初始化请求参数 ==> 非必传（默认为{}）
@@ -152,7 +156,7 @@ const tableRef = ref<InstanceType<typeof ElTable>>();
 const uuid = ref("id-" + generateUUID());
 
 // column 列类型
-const columnTypes: TypeProps[] = ["selection", "radio", "index", "expand", "sort"];
+const columnTypes: TypeProps[] = ["selection", "radio", "index", "expand", "sort", "dictionary"];
 
 // 是否显示搜索模块
 const isShowSearch = ref(true);
@@ -170,7 +174,14 @@ const { selectionChange, selectedList, selectedListIds, isSelected } = useSelect
 
 // 表格操作 Hooks
 const { tableData, pageable, searchParam, searchInitParam, getTableList, search, reset, handleSizeChange, handleCurrentChange } =
-  useTable(props.requestApi, props.initParam, props.pagination, props.dataCallback, props.requestError);
+  useTable(
+    props.requestApi,
+    props.initParam,
+    props.pagination,
+    props.dataCallback,
+    props.requestError,
+    props.searchParamsCallback
+  );
 
 // 清空选中数据列表
 const clearSelection = () => tableRef.value!.clearSelection();

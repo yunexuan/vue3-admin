@@ -13,7 +13,7 @@ export interface EnumProps {
   [key: string]: any;
 }
 
-export type TypeProps = "index" | "selection" | "radio" | "expand" | "sort";
+export type TypeProps = "index" | "selection" | "radio" | "expand" | "sort" | "dictionary";
 
 export type SearchType =
   | "input"
@@ -26,7 +26,8 @@ export type SearchType =
   | "time-picker"
   | "time-select"
   | "switch"
-  | "slider";
+  | "slider"
+  | "dictionary";
 
 export type SearchRenderScope = {
   searchParam: { [key: string]: any };
@@ -76,6 +77,7 @@ export interface ColumnProps<T = any>
   isSetting?: boolean | Ref<boolean>; // 是否在 ColSetting 中可配置
   search?: SearchProps | undefined; // 搜索项配置
   enum?: EnumProps[] | Ref<EnumProps[]> | ((params?: any) => Promise<any>); // 枚举字典
+  dict?: string;
   isFilterEnum?: boolean | Ref<boolean>; // 当前单元格值是否根据 enum 格式化（示例：enum 只作为搜索项数据）
   fieldNames?: FieldNamesProps; // 指定 label && value && children 的 key 值
   headerRender?: (scope: HeaderRenderScope<T>) => VNode; // 自定义表头内容渲染（tsx语法）

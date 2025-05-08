@@ -28,8 +28,16 @@ export interface GlobalState {
 
 /* UserState */
 export interface UserState {
-  token: string;
-  userInfo: { name: string };
+  token: {
+    tokenName: string;
+    tokenValue: string;
+  };
+  userInfo: {
+    userId: string;
+    orgId: string;
+    nickName: string;
+    headImg: string;
+  };
 }
 
 /* tabsMenuProps */
@@ -59,4 +67,8 @@ export interface AuthState {
 /* KeepAliveState */
 export interface KeepAliveState {
   keepAliveName: string[];
+}
+
+export interface DictionaryState {
+  dictionary: Map<string, Array<DictModel>>;
 }

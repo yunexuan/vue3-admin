@@ -27,11 +27,11 @@
 import { ref } from "vue";
 import { LOGIN_URL } from "@/config";
 import { useRouter } from "vue-router";
-import { logoutApi } from "@/api/modules/login";
 import { useUserStore } from "@/stores/modules/user";
 import { ElMessageBox, ElMessage } from "element-plus";
 import InfoDialog from "./InfoDialog.vue";
 import PasswordDialog from "./PasswordDialog.vue";
+import sysAuthApi from "@/api/modules/system/auth";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -44,10 +44,10 @@ const logout = () => {
     type: "warning"
   }).then(async () => {
     // 1.执行退出登录接口
-    await logoutApi();
+    await sysAuthApi.logout();
 
     // 2.清除 Token
-    userStore.setToken("");
+    userStore.clearToken();
 
     // 3.重定向到登陆页
     router.replace(LOGIN_URL);

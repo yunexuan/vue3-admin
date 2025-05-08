@@ -18,6 +18,8 @@ import "@/styles/element-dark.scss";
 import "@/styles/element.scss";
 // svg icons
 import "virtual:svg-icons-register";
+// unocss css
+import "virtual:uno.css";
 // element plus
 import ElementPlus from "element-plus";
 // element icons
@@ -32,6 +34,7 @@ import I18n from "@/languages/index";
 import pinia from "@/stores";
 // errorHandler
 import errorHandler from "@/utils/errorHandler";
+import components from "@/components/index";
 
 const app = createApp(App);
 
@@ -43,3 +46,5 @@ Object.keys(Icons).forEach(key => {
 });
 
 app.use(ElementPlus).use(directives).use(router).use(I18n).use(pinia).mount("#app");
+
+app.use(components);

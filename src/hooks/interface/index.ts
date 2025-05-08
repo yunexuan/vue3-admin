@@ -30,3 +30,20 @@ export namespace Theme {
   export type ThemeType = "light" | "inverted" | "dark";
   export type GreyOrWeakType = "grey" | "weak";
 }
+
+export declare namespace Message {
+  interface confirmOption {
+    title?: string;
+    message?: string;
+    onConfirm?: Function;
+    onCancel?: Function;
+  }
+  interface promptOption {
+    title?: string;
+    message?: string;
+    inputType?: string;
+    inputValue?: string;
+    onConfirm: Function;
+    onCancel?: Function;
+  }
+}

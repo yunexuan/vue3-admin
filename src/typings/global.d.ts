@@ -20,6 +20,13 @@ declare namespace Menu {
   }
 }
 
+declare type DictModel = {
+  dictId: string;
+  dictCode: string;
+  dictName: string;
+  colorType?: string;
+};
+
 /* FileType */
 declare namespace File {
   type ImageMimeType =
@@ -35,6 +42,17 @@ declare namespace File {
     | "image/x-icon";
 
   type ExcelMimeType = "application/vnd.ms-excel" | "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+  type FileMimeType =
+    | ImageMimeType
+    | ExcelMimeType
+    | "application/pdf"
+    | "video/mp4"
+    | "application/vnd.rar"
+    | "application/x-tar"
+    | "application/zip"
+    | "application/x-7z-compressed"
+    | "application/msword"
+    | "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 }
 
 /* Vite */
