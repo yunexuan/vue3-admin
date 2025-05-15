@@ -1,5 +1,7 @@
 import type { AppContext, Component, ComponentPublicInstance, VNode } from 'vue'
-import { createVNode, getCurrentInstance, render } from 'vue'
+import { ElConfigProvider } from 'element-plus'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import { createVNode, getCurrentInstance, h, render } from 'vue'
 
 export interface Options {
   visible?: boolean
@@ -30,12 +32,16 @@ function getAppendToElement(props: Options): HTMLElement {
 }
 
 function initInstance<T extends Component>(Component: T, props: Options, container: HTMLElement, appContext: AppContext | null = null) {
-  const vNode = createVNode(Component, props)
-  vNode.appContext = appContext
-  render(vNode, container)
+  const dialogVNode = createVNode(Component, props)
+
+  const configProviderVNode = h(ElConfigProvider, { locale: zhCn }, [dialogVNode])
+
+  configProviderVNode.appContext = appContext
+
+  render(configProviderVNode, container)
 
   getAppendToElement(props).appendChild(container)
-  return vNode
+  return configProviderVNode
 }
 
 export function useCommandComponent<T extends Component>(Component: T): CommandComponent {
