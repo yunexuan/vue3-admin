@@ -3,6 +3,18 @@ import { ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { createVNode, getCurrentInstance, h, render } from 'vue'
 
+export interface BaseDialogProps {
+  visible: boolean
+  isView?: boolean
+  title?: string
+  id?: any
+}
+
+export interface BaseDialogEmits {
+  (event: 'close'): void
+  (event: 'confirm'): void
+}
+
 export interface Options {
   visible?: boolean
   onClose?: () => void

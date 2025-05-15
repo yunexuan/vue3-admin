@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { BaseDialogEmits, BaseDialogProps } from '@/hooks/useDialog'
 import type { FormInstance } from 'element-plus'
 import hospitalApi from '@/api/modules/system/hospital'
 import regAgencyApi from '@/api/modules/system/regAgency'
@@ -7,17 +8,9 @@ import sysUserApi from '@/api/modules/system/user'
 import { ElMessage } from 'element-plus'
 import { computed, onMounted, reactive, ref } from 'vue'
 
-const dialogProps = defineProps<{
-  visible: boolean
-  isView?: boolean
-  title: string
-  id?: string
-}>()
+const dialogProps = defineProps<BaseDialogProps>()
 
-const emits = defineEmits<{
-  (event: 'close'): void
-  (event: 'confirm'): void
-}>()
+const emits = defineEmits<BaseDialogEmits>()
 
 const dialogVisible = computed<boolean>({
   get() {

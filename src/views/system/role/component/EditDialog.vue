@@ -1,21 +1,14 @@
 <script setup lang="ts" name="MenuDrawer">
+import type { BaseDialogEmits, BaseDialogProps } from '@/hooks/useDialog'
 import type { FormInstance } from 'element-plus'
 import sysMenuApi from '@/api/modules/system/menu'
 import sysRoleApi from '@/api/modules/system/role'
 import { ElMessage } from 'element-plus'
 import { computed, onMounted, reactive, ref } from 'vue'
 
-const dialogProps = defineProps<{
-  visible: boolean
-  isView?: boolean
-  title: string
-  id?: string
-}>()
+const dialogProps = defineProps<BaseDialogProps>()
 
-const emits = defineEmits<{
-  (event: 'close'): void
-  (event: 'confirm'): void
-}>()
+const emits = defineEmits<BaseDialogEmits>()
 
 const menuProps = {
   emitPath: false,
